@@ -54,3 +54,16 @@ Scenario: Type a valid value into a field
       | isCompany |            | Please complete |
     And the SubmitButton is disabled
     And the ChangesIndicator says there are unsaved changes
+
+Scenario: All fields have valid values
+  Given I have typed '31/01/201' into the 'birthday' field
+   When I type 'n' into the 'isCompany' field
+   Then the SectionNavigator shows
+      | section   | todo |
+      | Section 1 | 0    |
+    And the following fields are visible in the form:
+      | fieldname | value      | errors |
+      | birthday  | 31/03/2013 |        |
+      | isCompany | no         |        |
+    And the SubmitButton is enabled
+    And the ChangesIndicator says there are unsaved changes
